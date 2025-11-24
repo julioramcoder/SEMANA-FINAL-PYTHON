@@ -1,0 +1,10 @@
+[
+    {
+        "cliente": "RUBEN ",
+        "tipodecliente": "PREMIUM",
+        "productoVendido": "LAPTOP",
+        "cantidadVendida": 345,
+        "fechaDeVenta": "12/11/2025",
+        "descuentoAplicado": 12.0
+    }
+]

@@ -103,6 +103,97 @@ def GestionDeInventario():
         else:
             break
 #--------------------------------------------------------------------------------------------
+def mostrar_inventario():
+    print("\n========== INVENTARIO ACTUAL ==========\n")
+
+    if len(productos) == 0:
+        print("No hay productos en inventario.")
+        return
+
+    for p in productos:
+        print("----------------------------")
+        print(f"Nombre: {p['nombreProducto']}")
+        print(f"Marca: {p['marca']}")
+        print(f"Categoria: {p['categoria']}")
+        print(f"Precio: {p['precioUnitario']}")
+        print(f"Stock: {p['cantidadStock']}")
+        print(f"Garantia (meses): {p['garantiaMeses']}")
+        print()
+#-------------------------------------------------------------------------------------------
+def actualizar_producto():
+    print("\n========== ACTUALIZAR PRODUCTO ==========\n")
+    nombre_buscar = input("Nombre del producto a actualizar: ").lower()
+
+    for p in productos:
+        if p["nombreProducto"].lower() == nombre_buscar:
+
+            print("\nProducto encontrado:")
+            print(p)
+
+            print("\n¿Que deseas actualizar?")
+            print("1. Precio")
+            print("2. Stock")
+            print("3. Garantia")
+            opcion = input("Elige una opcion: ")
+
+            if opcion == "1":
+                nuevo_precio = float(input("Nuevo precio: "))
+                p["precioUnitario"] = nuevo_precio
+
+            elif opcion == "2":
+                nuevo_stock = int(input("Nuevo stock: "))
+                p["cantidadStock"] = nuevo_stock
+
+            elif opcion == "3":
+                nueva_garantia = int(input("Nueva garantia en meses: "))
+                p["garantiaMeses"] = nueva_garantia
+
+            else:
+                print("Opcion invalida.")
+                return
+
+            print("\nProducto actualizado:")
+            print(p)
+            return
+
+    print("Producto no encontrado.")
+#--------------------------------------------------------------------------------------------
+def eliminar_producto():
+    print("\n========== ELIMINAR PRODUCTO ==========\n")
+    nombre_buscar = input("Nombre del producto a eliminar: ").lower()
+
+    for p in productos:
+        if p["nombreProducto"].lower() == nombre_buscar:
+            productos.remove(p)
+            print("Producto eliminado correctamente.")
+            return
+
+    print("Producto no encontrado.")
+#--------------------------------------------------------------------------------------------
+def modulo_inventario():
+    while True:
+        print("\n=========== MODULO INVENTARIO ===========")
+        print("1. Agregar producto")
+        print("2. Ver inventario")
+        print("3. Actualizar producto")
+        print("4. Eliminar producto")
+        print("5. Volver al menu principal")
+
+        op = input("Elige una opcion: ").strip()
+
+        if op == "1":
+            GestionDeInventario()
+        elif op == "2":
+            mostrar_inventario()
+        elif op == "3":
+            actualizar_producto()
+        elif op == "4":
+            eliminar_producto()
+        elif op == "5":
+            break
+        else:
+            print("Opcion invalida.")
+#--------------------------------------------------------------------------------------------
 
 # Para validar la disponibilidad del stock primero es neesario ver que producto quiewres validar por ende 
 
@@ -135,6 +226,9 @@ def RegistroAndConsulta ():
         tipodecliente= input("Por favor ingrese el tipo de cliente: ")
         productoVendido = input("Por favor ingrese el nombre del producto: ")
         
+        producto_encontrado = validar_producto_valido(productoVendido)
+        if producto_encontrado is None:
+            continue 
         
         while True:
             try:
@@ -361,7 +455,7 @@ def ingresos_bruto_y_neto():
     print("\n===== INGRESOS =====\n")
     print(f"Ingreso bruto total: {ingreso_bruto}")
     print(f"Ingreso neto total: {ingreso_neto}")  
-    
+
 #-------------------------------------------------------------------------------------------------------------------
 
 def rendimiento_inventario():
@@ -399,7 +493,30 @@ def rendimiento_inventario():
         print(f"  Stock actual: {stock}")
         print(f"  % vendido: {porcentaje:.2f}%")
         print()   
+#-------------------------------------------------------------------------------------------------
+def modulo_reportes():
+    while True:
+        print("\n=========== MODULO DE REPORTES ===========")
+        print("1. Top 3 productos mas vendidos")
+        print("2. Ventas agrupadas por marca")
+        print("3. Ingreso bruto y neto")
+        print("4. Rendimiento del inventario")
+        print("5. Volver al menu principal")
 
+        op = input("Elige una opcion: ").strip()
+
+        if op == "1":
+            top_3_mas_vendidos()
+        elif op == "2":
+            ventas_por_marcas()
+        elif op == "3":
+            ingresos_bruto_y_neto()
+        elif op == "4":
+            rendimiento_inventario()
+        elif op == "5":
+            break
+        else:
+            print("Opcion invalida.")
 #================================= VALIDACION DE ENTRADAS DE USUARIOS =============================
 
 def validar_entrada_texto(mensaje):
