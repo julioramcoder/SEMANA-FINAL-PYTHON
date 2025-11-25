@@ -51,9 +51,14 @@ def GestionDeInventario():
     while True:
         print ("\n================ GESTION DE INVENTARIO ============\n")
         print("A continuacion podra gestionar el ingreso de los datos requeridos para un buen sistema de inventariado\n")
-        nombreProducto = input("Por favor ingrese el nombre del producto: ").lower()
-        marca = input("Por favor ingrese la marca del producto: ").lower()
-        categoria = input("Por favor ingrese la categoria del producto: ").lower()
+
+        nombreProducto = validar_entrada_texto("Porfavor ingrese el nombre del prducto: ")
+        marca= validar_entrada_texto("Por favor ingrese la marca del producto:  ")
+        categoria = validar_entrada_texto("Por favor ingrese la categoria del producto: ")
+        
+        
+            
+            
         while True:
             try:
                 precioUnitario = float(input("Por favor ingrese el precio del producto: "))
